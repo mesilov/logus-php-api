@@ -13,20 +13,9 @@ readonly class Pagination
      * @param int $limit
      */
     public function __construct(
-        private int $skip = 0,
-        private int $limit = CoreInterface::API_RESPONSE_PAGE_SIZE)
+        public int $skip = 0,
+        public int $limit = CoreInterface::API_RESPONSE_PAGE_SIZE)
     {
-    }
-
-    /**
-     * @return array
-     */
-    public function build(): array
-    {
-        return [
-            'filter.skip' => $this->skip,
-            'filter.limit' => $this->limit,
-        ];
     }
 
     /**

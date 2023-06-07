@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mesilov\Logus\Api\Services\GuestProfile;
 
-class Filter
+class GuestProfileFilter
 {
     /**
      * @var string|null Идентификатор профайла
@@ -80,9 +80,9 @@ class Filter
      * Идентификатор профайла
      *
      * @param string|null $genericNo
-     * @return Filter
+     * @return GuestProfileFilter
      */
-    public function withGenericNo(?string $genericNo): Filter
+    public function withGenericNo(?string $genericNo): GuestProfileFilter
     {
         $this->genericNo = $genericNo;
         return $this;
@@ -92,9 +92,9 @@ class Filter
      * Телефон
      *
      * @param string $phone
-     * @return Filter
+     * @return GuestProfileFilter
      */
-    public function withPhone(string $phone): Filter
+    public function withPhone(string $phone): GuestProfileFilter
     {
         $this->phone = $phone;
         return $this;
@@ -104,9 +104,9 @@ class Filter
      * Фамилия
      *
      * @param string $lastName
-     * @return Filter
+     * @return GuestProfileFilter
      */
-    public function withLastName(string $lastName): Filter
+    public function withLastName(string $lastName): GuestProfileFilter
     {
         $this->lastName = $lastName;
         return $this;
@@ -116,9 +116,9 @@ class Filter
      * Имя
      *
      * @param string $firstName
-     * @return Filter
+     * @return GuestProfileFilter
      */
-    public function withFirstName(string $firstName): Filter
+    public function withFirstName(string $firstName): GuestProfileFilter
     {
         $this->firstName = $firstName;
         return $this;
@@ -128,9 +128,9 @@ class Filter
      * Отчество
      *
      * @param string $middleName
-     * @return Filter
+     * @return GuestProfileFilter
      */
-    public function withMiddleName(string $middleName): Filter
+    public function withMiddleName(string $middleName): GuestProfileFilter
     {
         $this->middleName = $middleName;
         return $this;

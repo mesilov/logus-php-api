@@ -14,11 +14,11 @@ use Mesilov\Logus\Api\Services\GuestProfile\Result\GuestProfilesResult;
 readonly class GuestProfile extends AbstractService
 {
     /**
-     * @param Filter $filter
+     * @param GuestProfileFilter $filter
      * @param Pagination|null $pagination
      * @return GuestProfilesResult
      */
-    public function search(Filter $filter, ?Pagination $pagination = null): GuestProfilesResult
+    public function search(GuestProfileFilter $filter, ?Pagination $pagination = null): GuestProfilesResult
     {
         if ($pagination === null) {
             $pagination = Pagination::default();
@@ -27,7 +27,10 @@ readonly class GuestProfile extends AbstractService
             $this->core->call('GET', 'GuestProfile/Search?' . http_build_query(
                     array_merge(
                         $filter->build(),
-                        $pagination->build()
+                        [
+                            'filter.skip' => $pagination->skip,
+                            'filter.limit' => $pagination->limit,
+                        ]
                     )
                 )
             )
