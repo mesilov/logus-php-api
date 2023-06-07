@@ -1,0 +1,52 @@
+{
+  "name": "mesilov/logus-php-api",
+  "description": "A powerful PHP library for the Logus REST API",
+  "keywords": [
+    "Logus",
+    "PHP",
+    "REST",
+    "API"
+  ],
+  "type": "library",
+  "homepage": "https://github.com/mesilov/logus-php-api",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maxim Mesilov",
+      "homepage": "https://github.com/mesilov/"
+    }
+  ],
+  "require": {
+    "php": "8.2.*",
+    "ext-json": "*",
+    "ext-bcmath": "*",
+    "ext-curl": "*",
+    "ext-intl": "*",
+    "psr/log": "3.*",
+    "fig/http-message-util": "1.1.5",
+    "symfony/http-client": "6.3.*",
+    "symfony/http-client-contracts": "3.3.*",
+    "symfony/http-foundation": "6.3.*",
+    "symfony/uid": "6.3.*",
+    "moneyphp/money": "4.1.*"
+  },
+  "require-dev": {
+    "monolog/monolog": "3.3.*",
+    "symfony/console": "6.3.*",
+    "symfony/dotenv": "6.3.*",
+    "phpstan/phpstan": "*",
+    "phpunit/phpunit": "*",
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mesilov\\Logus\\Api\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bitrix24\\SDK\\Tools\\": "tools",
+      "Mesilov\\Logus\\Api\\Tests\\": "tests"
+    }
+  }
+}
