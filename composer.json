@@ -45,7 +45,6 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Bitrix24\\SDK\\Tools\\": "tools",
       "Mesilov\\Logus\\Api\\Tests\\": "tests"
     }
   }
