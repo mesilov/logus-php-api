@@ -8,7 +8,7 @@ use Mesilov\Logus\Api\Core;
 
 interface CoreInterface
 {
-    public const API_RESPONSE_PAGE_SIZE = 100;
+    public const API_RESPONSE_PAGE_SIZE = 200;
 
     /**
      * @param string $httpMethod

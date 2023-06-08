@@ -10,6 +10,12 @@ class ReservationFilter
 {
     private ?string $query = null;
     private ?string $lastName = null;
+    private ?string $genericNo = null;
+    private ?array $genericNos = null;
+    private ?int $sharedBookingId = null;
+    private ?array $statuses = null;
+
+    private ?string $guestPhone = null;
 
     /**
      * @param string $query
@@ -31,6 +37,66 @@ class ReservationFilter
         return $this;
     }
 
+    /**
+     * @param string $genericNo
+     * @return ReservationFilter
+     */
+    public function withGenericNo(string $genericNo): ReservationFilter
+    {
+        $this->genericNo = $genericNo;
+        return $this;
+    }
+
+    /**
+     * Номера броней (если необходимо выполнить поиск по нескольким броням сразу)
+     *
+     * @param array $genericNos
+     * @return ReservationFilter
+     */
+    public function withGenericNos(array $genericNos): ReservationFilter
+    {
+        $this->genericNos = $genericNos;
+        return $this;
+    }
+
+    /**
+     * Идентификатор разделённой брони
+     *
+     * @param int $sharedBookingId
+     * @return ReservationFilter
+     */
+    public function withSharedBookingId(int $sharedBookingId): ReservationFilter
+    {
+        $this->sharedBookingId = $sharedBookingId;
+        return $this;
+    }
+
+    /**
+     * Список статусов
+     *
+     * @param array $statuses
+     * @return $this
+     */
+    public function withStatuses(array $statuses): ReservationFilter
+    {
+        $this->statuses = $statuses;
+        return $this;
+    }
+
+    /**
+     * Телефонный номер гостя (основной). Если указан, будет произведён поиск среди основного телефона основных гостей брони
+     *
+     * @param string $guestPhone
+     * @return $this
+     */
+    public function withGuestPhone(string $guestPhone): ReservationFilter
+    {
+        $this->guestPhone = $guestPhone;
+        return $this;
+    }
+
+
+
 //Logus.HMS.BL.Contracts.Booking.BookingFilter {
 //ArrivalDateFrom (string, optional): Дата заезда (с) ,
 //ArrivalDateTo (string, optional): Дата заезда (по), включительно ,
@@ -46,12 +112,8 @@ class ReservationFilter
 //UnpaidOnly (boolean, optional): Отображать только неоплаченные ,
 //PropertyId (integer, optional): Идентификатор объекта (отеля) ,
 //QuotaId (integer, optional): Идентификатор квоты ,
-//Query (string, optional): Свободный поисковый текст (для поиска по ФИО, номеру брони, компании, типу комнаты, комнате) ,
 //RoomNo (string, optional): Номер комнаты ,
 //IncludeRevenue (boolean, optional): Производить или нет расчет стоимости доходных транзакций - может сказываться на быстродействии ,
-//GenericNo (string, optional): Номер брони ,
-//GenericNos (Array[string], optional): Номера броней (если необходимо выполнить поиск по нескольким броням сразу) ,
-//SharedBookingId (integer, optional): Идентификатор разделённой брони ,
 //ReservationId (integer, optional): Идентификатор брони ,
 //ReservationIds (Array[integer], optional): Идентификаторы броней (если нужен множественный поиск) ,
 //CrsAccount (string, optional): Код во внешней системе бронирования ,
@@ -60,23 +122,19 @@ class ReservationFilter
 //ForceLateBookings (boolean, optional): Если установлен в true, в выборку попадут опаздавшие брони вне зависимости от статуса и дат заезда ,
 //GuestTagId (integer, optional): Тег гостя ,
 //GuestPhones (Array[string], optional): Телефонные номера гостя (если совпадёт один из них) ,
-//GuestPhone (string, optional): Телефонный номер гостя (основной). Если указан, будет произведён поиск среди основного телефона основных гостей брони ,
+//GuestPhone (string, optional):  ,
 //GuestEmail (string, optional): Email главного гостя. ,
 //LastName (string, optional): Фамилия основного гостя ,
 //HasAgents (boolean, optional): Только брони с агентами ,
 //TrackEntries (boolean, optional): Управляет заполнением значений в словаре OriginalValues. ,
 //OnlyBoundToProfiles (boolean, optional): Если флаг установлен, будут выбраны только те брони, основной гость которых привязан к профилю ,
 //OnlyWithRoomAssigned (boolean, optional): Только с назначенными комнатами ,
-//IncludeGuestProfile (boolean, optional): Если флаг установлен, то сущность гостя будет содержать привязанный к нему профиль ,
-//IncludeGuestPhones (boolean, optional): Если флаг установлен, то сущность гостя будет содержать привязанные к нему телефоны ,
-//IncludeCustomFields (boolean, optional): Если флаг установлен, то сущность гостя будет содержать привязанные CustomFields ,
-//IncludeDocumentData (boolean, optional): Если флаг установлен, то сущность гостя будет содержать привязанные к нему паспортные данные ,
+
 //ReferralId (string, optional): Поиск по группе броней ,
 //Skip (integer, optional): Число записей, которые необходимо "пропустить" ,
 //Limit (integer, optional): Ограничение на кол-во записей ,
 //StayChargeUnit (Logus.HMS.Entities.Dictionaries.StayChargeUnit, optional): Единица расчёта проживания (см. {Logus.HMS.BL.Contracts.Booking.BookingFilter.StayChargeUnit}) ,
 //ExternalId (Logus.HMS.BL.Contracts.Booking.ExternalIdFilter, optional): Поиск по внешнему идентификатору ,
-//IncludeGuestCompletedVisitsCount (boolean, optional): Включить количество завершённых посещений гостя для броней, к которым привязан профиль гостя ,
 //CancellationReasonIds (Array[integer], optional): Причины аннуляции брони ,
 //ReservationsIds (Array[integer], optional): Идентификаторы броней ,
 //KeyCardNo (string, optional): Поиск по номеру ключ-карты ,
@@ -113,6 +171,21 @@ class ReservationFilter
         }
         if ($this->lastName !== null) {
             $filter['LastName'] = $this->lastName;
+        }
+        if ($this->genericNo !== null) {
+            $filter['genericNo'] = $this->genericNo;
+        }
+        if ($this->genericNos !== null) {
+            $filter['genericNos'] = $this->genericNos;
+        }
+        if ($this->sharedBookingId !== null) {
+            $filter['SharedBookingId'] = $this->sharedBookingId;
+        }
+        if ($this->statuses !== null) {
+            $filter['Statuses'] = $this->statuses;
+        }
+        if ($this->guestPhone !== null) {
+            $filter['GuestPhone'] = $this->guestPhone;
         }
         return $filter;
     }

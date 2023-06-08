@@ -25,4 +25,12 @@ readonly class Pagination
     {
         return new self();
     }
+
+    /**
+     * @return self
+     */
+    public function getNextPage(): self
+    {
+        return new self($this->skip + $this->limit, $this->limit);
+    }
 }

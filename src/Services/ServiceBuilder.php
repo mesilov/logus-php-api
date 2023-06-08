@@ -6,6 +6,7 @@ namespace Mesilov\Logus\Api\Services;
 
 use Mesilov\Logus\Api\Core\Contracts\CoreInterface;
 use Mesilov\Logus\Api\Services\GuestProfile\GuestProfile;
+use Mesilov\Logus\Api\Services\GuestProfile\GuestProfileFetcher;
 use Mesilov\Logus\Api\Services\Reservation\Reservation;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -29,6 +30,18 @@ class ServiceBuilder
     {
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new GuestProfile($this->core, $this->decimalMoneyFormatter, $this->log);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    /**
+     * @return GuestProfileFetcher
+     */
+    public function guestProfileFetcher(): GuestProfileFetcher
+    {
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new GuestProfileFetcher(new GuestProfile($this->core, $this->decimalMoneyFormatter, $this->log), $this->log);
         }
 
         return $this->serviceCache[__METHOD__];
