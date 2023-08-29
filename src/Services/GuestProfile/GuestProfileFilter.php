@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mesilov\Logus\Api\Services\GuestProfile;
 
+use DateTimeInterface;
+
 class GuestProfileFilter
 {
     /**
@@ -23,14 +25,19 @@ class GuestProfileFilter
      * @var string|null Отчество
      */
     private ?string $middleName = null;
+    /**
+     * @var string|null Текстовый запрос
+     */
+    private ?string $query = null;
+    /**
+     * @var DateTimeInterface|null Дата рождения
+     */
+    private ?DateTimeInterface $birthDate = null;
+
 
 //query	string
 //filter.firstLetter
 //Первая буква фамилии
-//
-//query	string
-//filter.query
-//Текстовый запрос
 //
 //query	string
 //filter.includeClosed
@@ -46,9 +53,6 @@ class GuestProfileFilter
 //query	long
 
 
-//query	string
-//filter.birthDate
-//Дата рождения
 //
 //query	date-time
 //filter.documentNumber
@@ -85,6 +89,18 @@ class GuestProfileFilter
     public function withGenericNo(?string $genericNo): GuestProfileFilter
     {
         $this->genericNo = $genericNo;
+        return $this;
+    }
+
+    public function withBirthday(?DateTimeInterface $birthDate):GuestProfileFilter
+    {
+        $this->birthDate = $birthDate;
+        return $this;
+    }
+
+    public function withQuery(?string $query):GuestProfileFilter
+    {
+        $this->query = $query;
         return $this;
     }
 
@@ -156,6 +172,12 @@ class GuestProfileFilter
         }
         if ($this->middleName !== null) {
             $filter['filter.middleName'] = $this->middleName;
+        }
+        if ($this->query !== null) {
+            $filter['filter.query'] = $this->query;
+        }
+        if ($this->birthDate !== null) {
+            $filter['filter.birthDate'] = $this->birthDate->format('Y-m-d');
         }
         return $filter;
     }
